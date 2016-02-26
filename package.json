@@ -22,6 +22,7 @@
   "license": "MIT",
   "homepage": "",
   "dependencies": {
+    "fs-extra": "^0.26.5",
     "request": "^2.69.0",
     "tar": "^2.2.1"
   },

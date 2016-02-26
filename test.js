@@ -2,11 +2,10 @@
 
 var assert = require('assert');
 var download = require('./');
+var fs = require('fs-extra');
 
 describe('test', function(){
 
-  // You should add more tests here
-  
   it('test download',function(done) {
     var url = 'http://registry.npmjs.org/version-checker/-/version-checker-0.1.5.tgz';
     download(url, {dest: 'tmp/version-checker.tgz'}, function (err, res) {
@@ -18,7 +17,7 @@ describe('test', function(){
 
   it('test download and extract',function(done) {
     var url = 'http://registry.npmjs.org/version-checker/-/version-checker-0.1.3.tgz';
-    download(url, {ext: true, dest: 'tmp/version-checker-0.1.3.tgz'}, function (err, res) {
+    download(url, {ext: true, dest: 'tmp/version-checker'}, function (err, res) {
       assert.equal(err, undefined);
       assert.ok(res);
       done();

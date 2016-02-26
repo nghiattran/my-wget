@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var fs = require('fs-extra');
 var request = require('request');
 var zlib = require('zlib');
 var gzip = zlib.createGzip();
@@ -35,11 +35,11 @@ function downloadExtract (url, opts, cb){
       } else {
         stream
           .pipe(zlib.Unzip())
-          .on('error', (err) => {
+          .on('error', function(err){
             cb(err, undefined);
           })
           .pipe(tar.Extract( {path: dest}))
-          .on('finish', () =>{
+          .on('finish', function(){
             var res = path.basename(url) + ' has been extracted to ' + dest  +  '.';
             cb(undefined, {status: res});
           })
@@ -51,14 +51,14 @@ function download (url, opts, cb){
   var dest = opts.dest || path.basename(url);
   var stream = request(url)
   stream
-    .on('response', function(res) {
+    .on('response', function (res) {
       if (res.statusCode != 200) {
         var res = path.basename(url) + ' has been extracted to ' + dest  +  '.';
         streamError(stream, res, cb);
       } else {
         stream
-          .pipe(fs.createWriteStream(dest))
-          .on('finish', () =>{
+          .pipe(fs.createOutputStream(dest))
+          .on('finish', function (){
             var res = path.basename(url) + ' has been downloaded to ' + dest  +  '.';
             cb(undefined, {status: res});
           })
@@ -68,7 +68,7 @@ function download (url, opts, cb){
 
 function streamError (stream, err, cb) {
   stream
-    .on('end', () =>{
+    .on('end', function () {
       cb(err, undefined);
     })
 }

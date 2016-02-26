@@ -2,15 +2,40 @@
 
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 
-## Getting To Know Yeoman
+## Installation
 
-Yeoman has a heart of gold. He&#39;s a person with feelings and opinions, but he&#39;s very easy to work with. If you think he&#39;s too opinionated, he can be easily convinced. Feel free to [learn more about him](http://yeoman.io/).
+```
+npm install --save my-wget
+```
+
+## Usage
+
+### download(url, [options], cb);
+
+`option`:
+
+* `dest` (**string**): destination of the downloaded file.
+* `ext` (**boolean**): extract file
+
+```js
+var download = require('my-wget');
+
+var url = 'path to file';
+download(url, {dest: 'path to destination', ext: false}, function (err, res) {
+  // do something
+})
+
+// Or just omit the option, so it will download it into the current directory
+download(url, function (err, res) {
+  // do something
+})
+```
 
 ## Created with
 [Yeoman](https://npmjs.org/package/yo) and [Generator-simple-package](https://npmjs.org/package/generator-simple-package)
 
 ## License
-MIT © [NghiaTTran]()
+MIT © [NghiaTTran](https://github.com/nghiattran)
 
 [npm-image]: https://badge.fury.io/js/my-wget.svg
 [npm-url]: https://npmjs.org/package/my-wget
