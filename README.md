@@ -16,6 +16,7 @@ npm install --save my-wget
 
 * `dest` (**string**): destination of the downloaded file.
 * `ext` (**boolean**): extract file
+* `strip` (**integer**): how many path segments to strip from the root when extracting 
 
 ```js
 var download = require('my-wget');
@@ -24,8 +25,10 @@ var url = 'path to file';
 download(url, {dest: 'path to destination', ext: false}, function (err, res) {
   // do something
 })
+```
 
-// Or just omit the option, so it will download it into the current directory
+Or just omit the option, so it will download it into the current directory
+```js
 download(url, function (err, res) {
   // do something
 })

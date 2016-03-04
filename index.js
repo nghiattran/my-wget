@@ -24,13 +24,17 @@ module.exports = function (url, opts, cb){
 }
 
 function downloadExtract (url, opts, cb){
+  var option = {
+    path: opts.dest || path.parse(url).name,
+    strip: opts.strip
+  }
   var dest = opts.dest || path.parse(url).name;
   var stream =  request.get(url);
 
   stream
     .on('response', function(res) {
       if (res.statusCode != 200) {
-        var res = path.basename(url) + ' has been extracted to ' + dest  +  '.';
+        var res = path.basename(url) + ' has been extracted to ' + option.path  +  '.';
         streamError(stream, res, cb);
       } else {
         stream
@@ -38,9 +42,9 @@ function downloadExtract (url, opts, cb){
           .on('error', function(err){
             cb(err, undefined);
           })
-          .pipe(tar.Extract( {path: dest}))
+          .pipe(tar.Extract(option))
           .on('finish', function(){
-            var res = path.basename(url) + ' has been extracted to ' + dest  +  '.';
+            var res = path.basename(url) + ' has been extracted to ' + option.path  +  '.';
             cb(undefined, {status: res});
           })
       }

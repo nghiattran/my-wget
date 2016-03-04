@@ -24,6 +24,15 @@ describe('test', function(){
     })
   });
 
+  it('test download and extract with stip',function(done) {
+    var url = 'http://registry.npmjs.org/version-checker/-/version-checker-0.1.3.tgz';
+    download(url, {ext: true, dest: 'tmp/version-checker', strip: 1}, function (err, res) {
+      assert.equal(err, undefined);
+      assert.ok(res);
+      done();
+    })
+  });
+
   it('test wrong url',function(done) {
     var url = 'http://registry.npmjs.org/version-checker/-/';
     download(url, function (err, res) {
